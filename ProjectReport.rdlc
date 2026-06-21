@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
+
+	<Body>
+		<Height>11in</Height>
+	</Body>
+
+	<DataSources>
+		<DataSource Name="DataSet1">
+			<ConnectionProperties>
+				<DataProvider>SQL</DataProvider>
+				<ConnectString>local</ConnectString>
+			</ConnectionProperties>
+		</DataSource>
+	</DataSources>
+
+	<DataSets>
+		<DataSet Name="MarksheetData">
+			<Query>
+				<DataSourceName>DataSet1</DataSourceName>
+				<CommandText>SELECT * FROM MarksheetView</CommandText>
+			</Query>
+			<Fields>
+				<Field Name="GroupName">
+					<DataField>GroupName</DataField>
+				</Field>
+				<Field Name="StudentName">
+					<DataField>StudentName</DataField>
+				</Field>
+				<Field Name="RegistrationNo">
+					<DataField>RegistrationNo</DataField>
+				</Field>
+				<Field Name="ProjectTitle">
+					<DataField>ProjectTitle</DataField>
+				</Field>
+				<Field Name="EvaluationName">
+					<DataField>EvaluationName</DataField>
+				</Field>
+				<Field Name="ObtainedMarks">
+					<DataField>ObtainedMarks</DataField>
+				</Field>
+				<Field Name="TotalMarks">
+					<DataField>TotalMarks</DataField>
+				</Field>
+				<Field Name="WeightedScore">
+					<DataField>WeightedScore</DataField>
+				</Field>
+			</Fields>
+		</DataSet>
+	</DataSets>
+
+	<ReportParameters>
+		<ReportParameter Name="ReportDate">
+			<DataType>DateTime</DataType>
+			<DefaultValue>
+				<Values>
+					<Value>=Today()</Value>
+				</Values>
+			</DefaultValue>
+		</ReportParameter>
+		<ReportParameter Name="GeneratedBy">
+			<DataType>String</DataType>
+			<DefaultValue>
+				<Values>
+					<Value>System</Value>
+				</Values>
+			</DefaultValue>
+		</ReportParameter>
+	</ReportParameters>
+
+	<ReportSections>
+		<ReportSection>
+			<Body>
+				<ReportItems>
+					<Textbox Name="Title">
+						<Value>FYP Evaluation Marksheet</Value>
+						<Style>
+							<FontSize>18pt</FontSize>
+							<FontWeight>Bold</FontWeight>
+							<TextAlign>Center</TextAlign>
+						</Style>
+						<Top>0.2in</Top>
+						<Left>0in</Left>
+						<Width>7in</Width>
+						<Height>0.5in</Height>
+					</Textbox>
+
+					<Textbox Name="Dept">
+						<Value>Department of Computer Science, UET Lahore</Value>
+						<Style>
+							<FontSize>11pt</FontSize>
+							<TextAlign>Center</TextAlign>
+						</Style>
+						<Top>0.7in</Top>
+						<Left>0in</Left>
+						<Width>7in</Width>
+						<Height>0.3in</Height>
+					</Textbox>
+
+					<Textbox Name="DateInfo">
+						<Value>=Format(Parameters!ReportDate.Value, "dd MMMM yyyy")</Value>
+						<Style>
+							<FontSize>10pt</FontSize>
+							<TextAlign>Right</TextAlign>
+						</Style>
+						<Top>0.2in</Top>
+						<Left>5.5in</Left>
+						<Width>1.5in</Width>
+						<Height>0.3in</Height>
+					</Textbox>
+
+					<Table Name="MarksTable">
+						<DataSetName>MarksheetData</DataSetName>
+						<Top>1.2in</Top>
+						<Left>0in</Left>
+						<Width>7in</Width>
+
+						<Header>
+							<TableRows>
+								<TableRow>
+									<Height>0.3in</Height>
+									<TableCells>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header1">
+													<Value>Group</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header2">
+													<Value>Student</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header3">
+													<Value>Reg No</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header4">
+													<Value>Evaluation</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header5">
+													<Value>Marks</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Header6">
+													<Value>Weighted Score</Value>
+													<Style>
+														<BackgroundColor>#E0E0E0</BackgroundColor>
+														<FontWeight>Bold</FontWeight>
+													</Style>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+									</TableCells>
+								</TableRow>
+							</TableRows>
+						</Header>
+
+						<Details>
+							<TableRows>
+								<TableRow>
+									<Height>0.25in</Height>
+									<TableCells>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail1">
+													<Value>=Fields!GroupName.Value</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail2">
+													<Value>=Fields!StudentName.Value</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail3">
+													<Value>=Fields!RegistrationNo.Value</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail4">
+													<Value>=Fields!EvaluationName.Value</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail5">
+													<Value>=Fields!ObtainedMarks.Value &amp; " / " &amp; Fields!TotalMarks.Value</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+										<TableCell>
+											<ReportItems>
+												<Textbox Name="Detail6">
+													<Value>=Format(Fields!WeightedScore.Value, "0.00")</Value>
+												</Textbox>
+											</ReportItems>
+										</TableCell>
+									</TableCells>
+								</TableRow>
+							</TableRows>
+						</Details>
+					</Table>
+				</ReportItems>
+			</Body>
+		</ReportSection>
+	</ReportSections>
+
+</Report>
